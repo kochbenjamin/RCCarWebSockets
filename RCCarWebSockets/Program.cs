@@ -8,16 +8,13 @@ using var controller = new GpioController();
 controller.OpenPin(Pin, PinMode.Output);
 controller.OpenPin(27, PinMode.Output);
 
-DateTime starttime = DateTime.Now;
+controller.Write(17, PinValue.High);
+controller.Write(27, PinValue.Low);
 
-while (DateTime.Now - starttime < TimeSpan.FromSeconds(1))
-{
-    Console.WriteLine("Writing High Value");
-    controller.Write(17, PinValue.High); // IN1
-    controller.Write(27, PinValue.Low);  // IN2
+await Task.Delay(1000); // 1 Sekunde warten
 
-    await Task.Delay(50);
-}
+controller.Write(17, PinValue.Low);
+controller.Write(27, PinValue.Low);
 
 
 Console.WriteLine("Motor gestoppt.");
