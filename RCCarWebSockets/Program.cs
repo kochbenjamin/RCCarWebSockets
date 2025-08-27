@@ -1,7 +1,7 @@
 ﻿using System.Device.Gpio;
 using System.Threading.Tasks;
 
-const int Pin = 11;
+const int Pin = 17;
 const string Alert = "ALERT 🚨";
 const string Ready = "READY ✅";
 
