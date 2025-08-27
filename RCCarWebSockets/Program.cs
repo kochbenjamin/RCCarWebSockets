@@ -1,7 +1,7 @@
 ﻿using System.Device.Gpio;
 using System.Threading.Tasks;
 
-const int Pin = 21;
+const int Pin = 11;
 const string Alert = "ALERT 🚨";
 const string Ready = "READY ✅";
 
@@ -11,7 +11,15 @@ controller.OpenPin(Pin, PinMode.InputPullUp);
 Console.WriteLine(
     $"Initial status ({DateTime.Now}): {(controller.Read(Pin) == PinValue.High ? Alert : Ready)}");
 
-controller.RegisterCallbackForPinValueChangedEvent(
+
+DateTime starttime = DateTime.Now;
+
+while (DateTime.Now - starttime < TimeSpan.FromSeconds(1))
+{
+    controller.Write(Pin, PinValue.High);
+}
+
+/*controller.RegisterCallbackForPinValueChangedEvent(
     Pin,
     PinEventTypes.Falling | PinEventTypes.Rising,
     OnPinEvent);
@@ -22,4 +30,4 @@ static void OnPinEvent(object sender, PinValueChangedEventArgs args)
 {
     Console.WriteLine(
         $"({DateTime.Now}) {(args.ChangeType is PinEventTypes.Rising ? Alert : Ready)}");
-}
+}*/
