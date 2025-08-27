@@ -16,6 +16,7 @@ DateTime starttime = DateTime.Now;
 
 while (DateTime.Now - starttime < TimeSpan.FromSeconds(1))
 {
+    Console.WriteLine( "Writing High Value");
     controller.Write(Pin, PinValue.High);
 }
 
