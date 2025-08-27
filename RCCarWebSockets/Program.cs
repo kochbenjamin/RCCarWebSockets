@@ -16,10 +16,10 @@ DateTime starttime = DateTime.Now;
 
 while (DateTime.Now - starttime < TimeSpan.FromSeconds(1))
 {
-    Console.WriteLine( "Writing High Value");
-    controller.Write(Pin, PinValue.High);
+    Console.WriteLine("Writing High Value");
+    controller.Write(17, PinValue.High); // IN1
+    controller.Write(27, PinValue.Low);  // IN2
 }
-
 /*controller.RegisterCallbackForPinValueChangedEvent(
     Pin,
     PinEventTypes.Falling | PinEventTypes.Rising,
