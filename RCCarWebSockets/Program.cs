@@ -6,10 +6,11 @@ const string Alert = "ALERT 🚨";
 const string Ready = "READY ✅";
 
 using var controller = new GpioController();
-controller.OpenPin(Pin, PinMode.InputPullUp);
+controller.OpenPin(Pin, PinMode.Output);
+controller.OpenPin(27, PinMode.Output);
 
-Console.WriteLine(
-    $"Initial status ({DateTime.Now}): {(controller.Read(Pin) == PinValue.High ? Alert : Ready)}");
+//Console.WriteLine(
+  //  $"Initial status ({DateTime.Now}): {(controller.Read(Pin) == PinValue.High ? Alert : Ready)}");
 
 
 DateTime starttime = DateTime.Now;
