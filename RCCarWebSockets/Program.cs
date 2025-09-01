@@ -2,7 +2,7 @@
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
-/*
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -33,20 +33,23 @@ app.Map("/ws", async context =>
 
             try
             {
-                var command = JsonSerializer.Deserialize<ControlCommand>(jsonString);
+                var command = JsonDocument.Parse(jsonString);
+                var type = command.RootElement.GetProperty("type").GetString();
                 if (command != null)
                 {
-                    Console.WriteLine($"Drive: {command.Drive}, Speed: {command.Direction}");
 
-                    controller.TurnLeft();
-                    controller.DriveForward();
+                    switch (type)
+                    {
+                        case "drive":
+                            var direction = command.RootElement.GetProperty("value").GetString();
+                            HandleDrive(direction);
+                            break;
 
-                    await Task.Delay(1000);
-
-                    controller.TurnStop();
-                    controller.DriveStop();
-                    break;
-                }
+                        case "turn":
+                            var steerDir = command.RootElement.GetProperty("value").GetString();
+                            HandleTurn(steerDir);
+                            break;
+                    }
             }
             catch (Exception ex)
             {
@@ -60,16 +63,48 @@ app.Map("/ws", async context =>
     }
 });
 
+void HandleDrive(string direction)
+{
+    switch (direction)
+    {
+        case "forward":
+            controller.DriveForward();
+            break;
+        case "backward":
+            controller.DriveBackWard();
+            break;
+        case "stop":
+            controller.DriveStop();
+            break;
+    }
+}
+
+void HandleTurn(string direction)
+{
+    switch (direction)
+    {
+        case "left":
+            controller.TurnLeft();
+            break;
+        case "right":
+            controller.TurnRight();
+            break;
+        case "stop":
+            controller.TurnStop();
+            break;
+    }
+}
+
 app.Run("http://0.0.0.0:5000");
 
 
-public class ControlCommand
+/*public class ControlCommand
 {
     public string Direction { get; set; } = "";
     public int Drive { get; set; }
 }
-*/
 
+/*
 var controller = new MotorController();
 
 
@@ -92,4 +127,4 @@ controller.DriveBackWard();
 
 await Task.Delay(500);
 
-controller.DriveStop();
+controller.DriveStop();*/
