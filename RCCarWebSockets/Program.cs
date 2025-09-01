@@ -2,7 +2,7 @@
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
-
+/*
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -68,9 +68,9 @@ public class ControlCommand
     public string Direction { get; set; } = "";
     public int Drive { get; set; }
 }
+*/
 
-
-/*var controller = new MotorController();
+var controller = new MotorController();
 
 
 
@@ -92,4 +92,4 @@ controller.DriveBackWard();
 
 await Task.Delay(500);
 
-controller.DriveStop();*/
+controller.DriveStop();
