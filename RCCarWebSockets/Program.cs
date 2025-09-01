@@ -1,9 +1,12 @@
-﻿using System.Net.WebSockets;
+﻿using RCCarWebSockets;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
+
+var controller = new MotorController();
 
 app.UseWebSockets();
 
@@ -35,7 +38,8 @@ app.Map("/ws", async context =>
                 {
                     Console.WriteLine($"Drive: {command.Drive}, Speed: {command.Direction}");
 
-                    // TODO: Steuerung des Autos anstoßen
+                    controller.TurnLeft();
+                    controller.DriveForward();
                 }
             }
             catch (Exception ex)
