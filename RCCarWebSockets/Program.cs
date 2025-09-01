@@ -45,7 +45,7 @@ app.Map("/ws", async context =>
                             HandleDrive(direction);
                             break;
 
-                        case "turn":
+                        case "steer":
                             var steerDir = command.RootElement.GetProperty("value").GetString();
                             HandleTurn(steerDir);
                             break;
