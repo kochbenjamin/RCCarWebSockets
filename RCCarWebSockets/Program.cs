@@ -41,10 +41,11 @@ app.Map("/ws", async context =>
                     controller.TurnLeft();
                     controller.DriveForward();
 
-                    await Task.Delay(100);
+                    await Task.Delay(1000);
 
                     controller.TurnStop();
                     controller.DriveStop();
+                    break;
                 }
             }
             catch (Exception ex)
