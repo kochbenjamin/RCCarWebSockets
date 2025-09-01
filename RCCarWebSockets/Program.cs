@@ -50,6 +50,7 @@ app.Map("/ws", async context =>
                             HandleTurn(steerDir);
                             break;
                     }
+                }
             }
             catch (Exception ex)
             {
